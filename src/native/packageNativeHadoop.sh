@@ -31,34 +31,34 @@ TAR='tar cf -'
 UNTAR='tar xfBp -'
 
 # Copy the pre-built libraries in $BASE_NATIVE_LIB_DIR
-if [ -d $BASE_NATIVE_LIB_DIR ]
+if [ -d "$BASE_NATIVE_LIB_DIR" ]
 then
-  for platform in `ls $BASE_NATIVE_LIB_DIR`
+  for platform in `ls "$BASE_NATIVE_LIB_DIR"`
   do
-    if [ ! -d $DIST_LIB_DIR/$platform ]
+    if [ ! -d "$DIST_LIB_DIR/$platform" ]
     then
-      mkdir -p $DIST_LIB_DIR/$platform
+      mkdir -p "$DIST_LIB_DIR/$platform"
       echo "Created $DIST_LIB_DIR/$platform"
     fi
     echo "Copying libraries in $BASE_NATIVE_LIB_DIR/$platform to $DIST_LIB_DIR/$platform/"
-    cd $BASE_NATIVE_LIB_DIR/$platform/
-    $TAR *gplcompression* | (cd $DIST_LIB_DIR/$platform/; $UNTAR)
+    cd "$BASE_NATIVE_LIB_DIR/$platform/"
+    $TAR *gplcompression* | (cd "$DIST_LIB_DIR/$platform/"; $UNTAR)
   done
 fi
 
 # Copy the custom-built libraries in $BUILD_DIR
-if [ -d $BUILD_NATIVE_DIR ]
+if [ -d "$BUILD_NATIVE_DIR" ]
 then 
-  for platform in `ls $BUILD_NATIVE_DIR`
+  for platform in `ls "$BUILD_NATIVE_DIR"`
   do
-    if [ ! -d $DIST_LIB_DIR/$platform ]
+    if [ ! -d "$DIST_LIB_DIR/$platform" ]
     then
-      mkdir -p $DIST_LIB_DIR/$platform
+      mkdir -p "$DIST_LIB_DIR/$platform"
       echo "Created $DIST_LIB_DIR/$platform"
     fi
     echo "Copying libraries in $BUILD_NATIVE_DIR/$platform/lib to $DIST_LIB_DIR/$platform/"
-    cd $BUILD_NATIVE_DIR/$platform/lib
-    $TAR *gplcompression* | (cd $DIST_LIB_DIR/$platform/; $UNTAR)
+    cd "$BUILD_NATIVE_DIR/$platform/lib"
+    $TAR *gplcompression* | (cd "$DIST_LIB_DIR/$platform/"; $UNTAR)
   done  
 fi
 
