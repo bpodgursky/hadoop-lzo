@@ -111,6 +111,20 @@
   <property name="ivy.publish.pattern" value="hadoop-[revision]-core.[ext]"/>
   <property name="jar.name" location="${build.dir}/${final.name}.jar" />
 
+  <!--
+       Java8 introduced a HTML checker 'doclint' which is very strict and breaks
+       the build if there is a HTML error in the JavaDoc.
+    -->
+  <condition
+     property="javadoc.doclint.none"
+     value="-Xdoclint:none"
+     else="">
+    <or>
+      <equals arg1="${ant.java.version}" arg2="1.8"/>
+      <equals arg1="${ant.java.version}" arg2="1.9"/>
+    </or>
+  </condition>
+
   <!-- the normal classpath -->
   <path id="classpath">
     <pathelement location="${build.classes}"/>
@@ -365,6 +379,7 @@
       use="true"
       windowtitle="${Name} ${version} API"
       doctitle="${Name} ${version} Developer API"
+      additionalparam="${javadoc.doclint.none}"
       >
         <packageset dir="${java.src.dir}"/>
 
@@ -394,6 +409,7 @@
       use="true"
       windowtitle="${Name} ${version} API"
       doctitle="${Name} ${version} API"
+      additionalparam="${javadoc.doclint.none}"
       >
         <packageset dir="${java.src.dir}"/>
         
